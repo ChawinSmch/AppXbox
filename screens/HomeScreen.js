@@ -1,6 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { View, ScrollView, Animated, Dimensions, Text, Image } from 'react-native';
 import {Ionicons, FontAwesome6, MaterialIcons} from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Games from '../components/Games';
+import Friends from '../components/Friends';
+// import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 export default function Homescreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -12,10 +17,6 @@ export default function Homescreen() {
     { uri: 'https://i.redd.it/tkq453ttioq51.jpg', background: 'https://i.redd.it/tkq453ttioq51.jpg' }, 
     // รูปอื่นๆ
   ];
-  const games = [
-    {"id": "1", "title": "game","uri":""}
-  ];
-
   const handleScroll = (event) => {
     const xOffset = event.nativeEvent.contentOffset.x;
     const index = Math.round(xOffset / Dimensions.get('window').width);
@@ -30,6 +31,12 @@ export default function Homescreen() {
     outputRange: ['rgba(0, 0, 0, 0.7)', 'rgba(0, 0, 0, 1)'],
     extrapolate: 'clamp',
   });
+
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Post');
+  };
 
   const styles = {
     container: {
@@ -120,9 +127,7 @@ export default function Homescreen() {
           <Ionicons name="notifications" size={30} style={styles.iconRight} />
         </View>
       </Animated.View>
-
-      
-      
+     
       <ScrollView 
         // contentContainerStyle={{ paddingTop: 75 }}
         onScroll={Animated.event(
@@ -130,9 +135,6 @@ export default function Homescreen() {
           { useNativeDriver: false }
         )}
         // scrollEventThrottle={16}
-
-        
-         
       >
         <View>
           <Image source={{ uri: backgroundImage }} style={styles.backgroundImage} />
@@ -159,17 +161,25 @@ export default function Homescreen() {
         </ScrollView>
         <ScrollView >
         {/* Your content goes here */}
-        <View style={{ height: 1500}}>
+        <View style={{ height: 950}}>
           <View style={{ padding:15}}>
           {/* <Text>Scroll to see the effect...</Text> */}
-          <Text style={{ color:'white', fontSize:25}}>Official posts from games</Text>
+          <Text style={{ color:'white', fontSize:25,fontWeight: 'bold'}}>Official posts from games</Text>
           {/* สร้างComponent  */}
           <View style={{padding:10, }}>
-            <View style={{borderRadius: 50,borderColor:"white",borderWidth:2, backgroundColor: 'green',width: 100,height: 100,}}/>
-
+            <TouchableOpacity onPress={handlePress}>
+            <Image
+              source={{ uri: 'https://pbs.twimg.com/profile_images/1823052013028147200/nkkCiNHn_400x400.jpg' , screen: 'OtherScreen'}} style={{borderColor: 'red',borderWidth:2,borderRadius: 50,width: 100,height: 100,}}/>
+            </TouchableOpacity>
           </View>
-          <Text style={{ color:'white', fontSize:25,paddingTop:10}}>Active friends</Text>
-          
+          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Active friends</Text>
+          <View>
+            <Friends/>
+          </View>
+          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Popula Games</Text>
+          <View >
+            <Games/>
+          </View>
         </View>
         </View>
         

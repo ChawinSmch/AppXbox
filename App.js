@@ -1,12 +1,16 @@
 import React from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import BottomTap from "./navigations/BottomTap";
+//import BottomTab from "./navigations/BottomTab";
+import RootStack from "./navigations/RootStack";
+// import Posts from "./components/Posts";
 
 export default function App() {
   return ( 
     <NavigationContainer>
     {/* <Mainscreen /> */}
-    <BottomTap/>
+    {/* <BottomTab/> */}
+    <RootStack/>
     </NavigationContainer>
+    // <Posts/>
   );
 }

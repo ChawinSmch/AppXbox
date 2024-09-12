@@ -10,7 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTap() {
+export default function BottomTab() {
   return (
     
       <Tab.Navigator
