@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, ScrollView, Animated, Dimensions, Text, Image } from 'react-native';
+import { View, ScrollView, Animated, Dimensions, Text, Image, StyleSheet } from 'react-native';
 import {Ionicons, FontAwesome6, MaterialIcons} from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -38,7 +38,84 @@ export default function Homescreen() {
     navigation.navigate('Post');
   };
 
-  const styles = {
+
+
+  return (
+    <View style={[styles.container ,{height: 1500} ]}>
+      
+      <Animated.View style={[styles.tabBar, { backgroundColor }]}>
+      <FontAwesome6 name="xbox" size={30} style={styles.iconLeft} />
+        <View style={styles.rightIcons}>
+          <MaterialIcons name="cast-connected" size={30} style={styles.iconRight} />
+          <Ionicons name="notifications" size={30} style={styles.iconRight} />
+        </View>
+      </Animated.View>
+     
+      <ScrollView 
+        // contentContainerStyle={{ paddingTop: 75 }}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        // scrollEventThrottle={16}
+      >
+        <View>
+          <Image source={{ uri: backgroundImage }} style={styles.backgroundImage} />
+        <View>
+
+        </View>
+        </View>
+
+        <ScrollView
+        horizontal={true}// กำหนดให้สไลด์ในแนวนอน
+        showsHorizontalScrollIndicator={false} // ซ่อนแถบเลื่อนแนวนอน
+        onScroll={handleScroll}
+        pagingEnabled// ให้ ScrollView หยุดที่แต่ละหน้า
+        scrollEventThrottle={16}
+        contentContainerStyle={{ paddingTop: 91 }}
+        >
+
+        {images.map((image, index) => (
+          <View key={index} style={styles.itemContainer}>
+            <Image source={{ uri: image.uri }} style={styles.image} />
+          </View>
+        ))}
+        
+        </ScrollView>
+        <ScrollView >
+        {/* Your content goes here */}
+        <View style={{ height: 950}}>
+          <View style={{ padding:15}}>
+          {/* <Text>Scroll to see the effect...</Text> */}
+          <Text style={{ color:'white', fontSize:25,fontWeight: 'bold'}}>Official posts from games</Text>
+          {/* สร้างComponent  */}
+          <View style={{padding:10, }}>
+            <TouchableOpacity onPress={handlePress}>
+            <Image
+              source={{ uri: 'https://pbs.twimg.com/profile_images/1823052013028147200/nkkCiNHn_400x400.jpg' , screen: 'OtherScreen'}} style={{borderColor: 'red',borderWidth:2,borderRadius: 50,width: 100,height: 100,}}/>
+            </TouchableOpacity>
+          </View>
+          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Active friends</Text>
+          <View>
+            <Friends/>
+          </View>
+          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Popula Games</Text>
+          <View >
+            <Games/>
+          </View>
+        </View>
+        </View>
+        
+        </ScrollView>
+        
+      </ScrollView>
+      
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:
@@ -115,78 +192,4 @@ export default function Homescreen() {
         color: '#000',
       },
     
-  };
-
-  return (
-    <View style={[styles.container ,{height: 1500} ]}>
-      
-      <Animated.View style={[styles.tabBar, { backgroundColor }]}>
-      <FontAwesome6 name="xbox" size={30} style={styles.iconLeft} />
-        <View style={styles.rightIcons}>
-          <MaterialIcons name="cast-connected" size={30} style={styles.iconRight} />
-          <Ionicons name="notifications" size={30} style={styles.iconRight} />
-        </View>
-      </Animated.View>
-     
-      <ScrollView 
-        // contentContainerStyle={{ paddingTop: 75 }}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
-        // scrollEventThrottle={16}
-      >
-        <View>
-          <Image source={{ uri: backgroundImage }} style={styles.backgroundImage} />
-        <View>
-
-        </View>
-        </View>
-
-        <ScrollView
-        horizontal={true}// กำหนดให้สไลด์ในแนวนอน
-        showsHorizontalScrollIndicator={false} // ซ่อนแถบเลื่อนแนวนอน
-        onScroll={handleScroll}
-        pagingEnabled// ให้ ScrollView หยุดที่แต่ละหน้า
-        scrollEventThrottle={16}
-        contentContainerStyle={{ paddingTop: 91 }}
-        >
-
-        {images.map((image, index) => (
-          <View key={index} style={styles.itemContainer}>
-            <Image source={{ uri: image.uri }} style={styles.image} />
-          </View>
-        ))}
-        
-        </ScrollView>
-        <ScrollView >
-        {/* Your content goes here */}
-        <View style={{ height: 950}}>
-          <View style={{ padding:15}}>
-          {/* <Text>Scroll to see the effect...</Text> */}
-          <Text style={{ color:'white', fontSize:25,fontWeight: 'bold'}}>Official posts from games</Text>
-          {/* สร้างComponent  */}
-          <View style={{padding:10, }}>
-            <TouchableOpacity onPress={handlePress}>
-            <Image
-              source={{ uri: 'https://pbs.twimg.com/profile_images/1823052013028147200/nkkCiNHn_400x400.jpg' , screen: 'OtherScreen'}} style={{borderColor: 'red',borderWidth:2,borderRadius: 50,width: 100,height: 100,}}/>
-            </TouchableOpacity>
-          </View>
-          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Active friends</Text>
-          <View>
-            <Friends/>
-          </View>
-          <Text style={{ color:'white', fontSize:25,paddingTop:10, fontWeight: 'bold'}}>Popula Games</Text>
-          <View >
-            <Games/>
-          </View>
-        </View>
-        </View>
-        
-        </ScrollView>
-        
-      </ScrollView>
-      
-    </View>
-  );
-}
+  });

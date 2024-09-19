@@ -1,7 +1,8 @@
-import * as React  from 'react';
+import React, { useContext } from 'react';
 import  { useState } from 'react'
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, TextInput } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
+import { ThemeContext } from '../services/Theme';
 
 const games = [
   { id: '1', name: 'Fortnite', imageUri: 'https://i.redd.it/tkq453ttioq51.jpg' },
@@ -11,6 +12,8 @@ const games = [
 ];
 
 export default function LibraryScreen({ navigation }) {
+
+  const { theme } = useContext(ThemeContext);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity 
@@ -24,7 +27,8 @@ export default function LibraryScreen({ navigation }) {
 
 
   return (
-    <View style={{ flex: 1, backgroundColor:'#333333'}}>
+    <View style={{ flex: 1,         backgroundColor: theme === 'light' ? '#fff' : '#333',
+    }}>
       <View>
             <Text style={{fontSize:40, color:'white', padding:20, backgroundColor: 'black'}}>My Library</Text>
             
